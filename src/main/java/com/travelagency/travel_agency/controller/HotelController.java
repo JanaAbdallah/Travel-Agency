@@ -55,4 +55,19 @@ public class HotelController {
             return ResponseEntity.internalServerError().body(null);
         }
     }
+
+    @GetMapping
+    public ResponseEntity<List<Hotel>> getAllHotels() {
+        return ResponseEntity.ok(hotelService.getAllHotels());
+    }
+
+    @PostMapping("/cancel/{hotelId}")
+    public ResponseEntity<String> cancelRoomBooking(
+            @PathVariable Long hotelId,
+            @RequestParam Long userId,
+            @RequestParam String roomType) {
+        String message = hotelService.cancelRoomBooking(hotelId, userId, roomType);
+        return ResponseEntity.ok(message);
+    }
+
 }

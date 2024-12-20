@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -21,6 +22,21 @@ public class User {
     private String email;
     private String password;
 
+    @ManyToMany
+    @JoinTable(
+            name = "user_booked_events",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "event_id")
+    )
+    private List<Event> bookedEvents = new ArrayList<>();
+
+    public void bookEvent(Event event) {
+        bookedEvents.add(event);
+    }
+
+    public void cancelEvent(Event event) {
+        bookedEvents.remove(event);
+    }
     @Column(name = "is_active", nullable = false)
     private boolean isActive = true;
 

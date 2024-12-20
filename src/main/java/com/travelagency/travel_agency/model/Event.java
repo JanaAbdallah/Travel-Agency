@@ -19,11 +19,32 @@ public class Event {
     private String location;
     private String date;
 
-    public Event(String name, String location, String date) {
+    private int availableTickets; // Add this field
+
+    public void decrementTickets() {
+        if (availableTickets > 0) {
+            availableTickets--;
+        } else {
+            throw new RuntimeException("No tickets available");
+        }
+    }
+
+    public void incrementTickets() {
+        availableTickets++;
+    }
+    public int getAvailableTickets() {
+        return availableTickets;
+    }
+    public void setAvailableTickets(int availableTickets) {
+        this.availableTickets = availableTickets;
+    }
+
+
+    public Event(String name, String location, String date, int availableTickets) {
         this.name = name;
         this.location = location;
         this.date = date;
-
+        this.availableTickets = availableTickets;
     }
 
     public String getName() {
